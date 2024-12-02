@@ -7,7 +7,7 @@
     <div id="carouselExampleControls" class="carousel slide fade-in" data-ride="carousel">
         <div class="carousel-caption d-none d-md-block">
             <div class="header text-center">
-                <h1 class="text-black">Mereka Membutuhkan Kita.</h1>
+                <h1 class="text-black">Mereka Bersama Kita.</h1>
                 <p class="text-black">Bersama kita bisa membuat perubahan</p>
             </div>
         </div>
