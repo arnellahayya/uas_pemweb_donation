@@ -22,6 +22,12 @@
             <div class="carousel-item">
                 <img class="d-block w-100" src="/images/index/header-3.png" alt="Gambar3" />
             </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/index/header-4.png" alt="Gambar4" />
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/index/header-5.png" alt="Gambar5" />
+            </div>
         </div>
 
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -58,50 +64,48 @@
             window.location.href = "/donasi";
         }
 
-        // Fungsi untuk memuat berita dari API Laravel
-        async function fetchNews() {
-            const newsContainer = document.getElementById('news-container');
-            
-            try {
-                // Ambil berita dari API Laravel
-                const response = await fetch('/api/news');
-                const result = await response.json();
+        async function loadNews() {
+        const apiUrl = '/api/news'; // URL backend Laravel
 
-                // Cek jika data berita ada
-                if (result.data && result.data.length > 0) {
-                    // Kosongkan konten lama
-                    newsContainer.innerHTML = '';
+        const newsContainer = document.getElementById('news-container');
+        newsContainer.innerHTML = '<p class="text-center">Memuat berita...</p>';
 
-                    result.data.forEach(item => {
-                        const newsItem = document.createElement('div');
-                        newsItem.className = 'col-md-4 mb-4';
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
 
-                        // Membuat card berita
-                        newsItem.innerHTML = `
-                            <div class="card">
-                                <img src="${item.image}" class="card-img-top" alt="${item.title}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${item.title}</h5>
-                                    <p class="card-text">${item.description}</p>
-                                    <a href="${item.link}" class="btn btn-primary" target="_blank">Baca Selengkapnya</a>
-                                </div>
+            if (data.articles) {
+                newsContainer.innerHTML = '';
+
+                // Iterasi melalui berita dan tambahkan ke halaman
+                data.articles.forEach((article) => {
+                    const newsCard = document.createElement('div');
+                    newsCard.classList.add('col-md-4', 'mb-4');
+
+                    newsCard.innerHTML = `
+                        <div class="card">
+                            <img class="card-img-top" src="${article.urlToImage || '/images/default-news.jpg'}" alt="Berita">
+                            <div class="card-body">
+                                <h5 class="card-title">${article.title}</h5>
+                                <p class="card-text">${article.description || ''}</p>
+                                <a href="${article.url}" target="_blank" class="btn btn-primary">Baca Selengkapnya</a>
                             </div>
-                        `;
-
-                        // Tambahkan berita ke container
-                        newsContainer.appendChild(newsItem);
-                    });
-                } else {
-                    newsContainer.innerHTML = '<p class="text-center">Tidak ada berita ditemukan.</p>';
-                }
-            } catch (error) {
-                console.error('Error fetching news:', error);
-                newsContainer.innerHTML = '<p class="text-danger text-center">Gagal memuat berita. Silakan coba lagi nanti.</p>';
+                        </div>
+                    `;
+                    newsContainer.appendChild(newsCard);
+                });
+            } else {
+                newsContainer.innerHTML = '<p class="text-center">Gagal memuat berita.</p>';
             }
+        } catch (error) {
+            console.error('Error fetching news:', error);
+            newsContainer.innerHTML = '<p class="text-center">Terjadi kesalahan saat memuat berita.</p>';
         }
+    }
 
-        // Panggil fungsi untuk memuat berita saat halaman dimuat
-        window.onload = fetchNews;
+    // Panggil fungsi loadNews saat halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', loadNews);
+        
     </script>
 
     <style>

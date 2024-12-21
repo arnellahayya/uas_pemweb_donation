@@ -3,66 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class NewsController extends Controller
 {
     public function fetchNews()
     {
-        $rssUrl = 'https://rss.tempo.co/rss/topnews';
+        $apiKey = env('NEWS_API_KEY', 'ac08a93ad958433cbd5af4c2ed71d882');
+        $url = "https://newsapi.org/v2/top-headlines?country=id&category=general&apiKey={$apiKey}";
 
-        // Fetch RSS Feed
-        $rssContent = simplexml_load_file($rssUrl);
+        try {
+            $response = Http::get($url);
 
-        // Cek apakah RSS feed tersedia
-        if (!$rssContent) {
-            return response()->json([
-                'message' => 'Failed to load news.',
-            ], 500);
+            // Tambahkan log untuk melihat data API
+            \Log::info('NewsAPI Response: ', $response->json());
+
+            if ($response->successful()) {
+                return response()->json($response->json());
+            } else {
+                return response()->json(['error' => 'Gagal memuat berita dari API'], $response->status());
+            }
+        } catch (\Exception $e) {
+            \Log::error('NewsAPI Error: ' . $e->getMessage());
+            return response()->json(['error' => 'Terjadi kesalahan saat memproses permintaan'], 500);
         }
-
-        $newsData = [];
-        foreach ($rssContent->channel->item as $item) {
-            // Menyiapkan data berita
-            $newsData[] = [
-                'title' => (string) $item->title,
-                'link' => (string) $item->link,
-                'description' => strip_tags((string) $item->description),
-                'image' => (string) $item->enclosure['url'] ?? '/images/default-news.png',
-            ];
-        }
-
-        return response()->json([
-            'message' => 'News fetched successfully',
-            'data' => $newsData,
-        ]);
-    }
-
-    // Fungsi untuk menampilkan halaman utama dengan berita
-    public function index()
-    {
-        $rssUrl = 'https://lapi.kumparan.com/v2.0/rss/';
-
-        // Fetch RSS Feed
-        $rssContent = simplexml_load_file($rssUrl);
-
-        // Cek apakah RSS feed tersedia
-        if (!$rssContent) {
-            return view('index', ['message' => 'Failed to load news.']);
-        }
-
-        $newsData = [];
-        foreach ($rssContent->channel->item as $item) {
-            // Menyiapkan data berita
-            $newsData[] = [
-                'title' => (string) $item->title,
-                'link' => (string) $item->link,
-                'description' => strip_tags((string) $item->description),
-                'image' => (string) $item->enclosure['url'] ?? '/images/default-news.png',
-            ];
-        }
-
-        // Kirim data berita ke view
-        return view('index', ['news' => $newsData]);
     }
 
 }
