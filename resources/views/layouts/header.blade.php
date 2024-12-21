@@ -130,7 +130,7 @@
     }
 
     .navbar-light .navbar-nav .nav-link:hover {
-        color: #0056b3;
+        color:rgb(255, 0, 149);
     }
 
     .btn-primary {
@@ -143,10 +143,6 @@
     .btn-primary:hover {
         background: linear-gradient(45deg, rgb(1, 111, 175), rgb(164, 1, 77));
         transform: scale(1.05);
-    }
-
-    .navbar-brand img:hover {
-        transform: scale(1.2);
     }
 
     .modal-content {

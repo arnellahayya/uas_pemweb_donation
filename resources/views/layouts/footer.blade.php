@@ -78,7 +78,7 @@
     }
 
     footer .fab:hover {
-        color:rgb(111, 0, 255); /* Hover color for social media icons */
+        color:rgb(0, 81, 255); /* Hover color for social media icons */
         transform: scale(1.2);
     }
 
