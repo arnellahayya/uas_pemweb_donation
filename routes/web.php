@@ -5,6 +5,11 @@ use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\cekAdmin;
 use App\Http\Middleware\cekLogin;
+use App\Http\Controllers\NewsController;
+
+Route::get('/api/news', [NewsController::class, 'fetchNews']);
+
+
 
 Route::get('/', function () {
     return view('index');
