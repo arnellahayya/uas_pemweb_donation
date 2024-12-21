@@ -28,6 +28,9 @@
             <div class="carousel-item">
                 <img class="d-block w-100" src="/images/index/header-5.png" alt="Gambar5" />
             </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/index/header-6.png" alt="Gambar6" />
+            </div>
         </div>
 
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

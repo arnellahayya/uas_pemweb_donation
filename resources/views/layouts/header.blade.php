@@ -1,4 +1,3 @@
-{{-- HEADER NAVBAR --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,51 +11,58 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-        <a class="navbar-brand" href="/"><img src="/images/layout/main-logo.png" width="320" /></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="/images/layout/main-logo.png" alt="Logo" class="img-fluid mr-2" style="height: 50px;" />
+                
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/donasi">Donasi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/donatur">List Donatur</a>
-                </li>
-
-                @if (Auth::check())
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i> {{ ucwords(Auth::user()->username) }}
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            @if (Auth::user()->jenisAkun === 'admin')
-                                <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                            @endif
-                            <a class="dropdown-item" href="/session/logout">Logout</a>
-                        </div>
-                    </li>
-                @else
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="/session"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+                        <a class="nav-link text-uppercase" href="/">Beranda</a>
                     </li>
-                @endif
-            </ul>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/donasi">Donasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="/donatur">List Donatur</a>
+                    </li>
+
+                    @if (Auth::check())
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-user"></i> {{ ucwords(Auth::user()->username) }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                @if (Auth::user()->jenisAkun === 'admin')
+                                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                                @endif
+                                <a class="dropdown-item" href="/donasi/creator">Donasi Creator</a>
+                                <a class="dropdown-item" href="/session/logout">Logout</a>
+                            </div>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary text-white px-4 py-2" href="/session">
+                                <i class="fa-solid fa-right-to-bracket"></i> Login
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -66,9 +72,9 @@
             aria-labelledby="errorModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="errorModalCenterTitle"> {{ session('errorHeader') }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalCenterTitle">{{ session('errorHeader') }}</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -76,9 +82,6 @@
                         {{ session('error') }}
                     </div>
                     <div class="modal-footer">
-                        {{-- @if (!Auth::check())
-                            <a href="/session" class="btn btn-primary">Login</a>
-                        @endif --}}
                         @if (Auth::check() && Auth::user()->jenisAkun === 'guest')
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         @else
@@ -89,8 +92,6 @@
             </div>
         </div>
     @endif
-
-    {{-- AKHIR MODAL PEMBERITAHUAN --}}
 
     {{-- KONTEN --}}
     @yield('content')
@@ -110,42 +111,60 @@
 </html>
 
 <style>
-    
-    .navbar {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
     body {
-        /* baru */
-        padding-top: 65px;
         font-family: "Poppins", sans-serif;
         color: #343434;
-        background-color: #f2f2f2;
+        background-color: #f9f9f9;
+        padding-top: 75px;
     }
 
-    .navbar-brand img {
-        width: 250px;
-        margin-left: 20px;
-        margin-top: 3px;
-        margin-bottom: 3px;
+    .navbar {
+        transition: all 0.3s ease;
+        padding: 15px 0;
     }
 
-    .navbar-nav .nav-link {
-        margin-right: 30px;
+    .navbar-light .navbar-nav .nav-link {
+        font-weight: 600;
+        transition: color 0.3s ease;
+        letter-spacing: 0.5px;
     }
 
-    .fa-right-to-bracket {
-        font-size: 0.9em;
-        margin-right: 0.5rem;
+    .navbar-light .navbar-nav .nav-link:hover {
+        color: #0056b3;
     }
 
-    .fa-user {
-        font-size: 0.8em;
-        margin-right: 0.4rem;
+    .btn-primary {
+        background: linear-gradient(45deg, rgb(0, 162, 255), rgb(241, 0, 112));
+        border: none;
+        border-radius: 30px;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(45deg, rgb(1, 111, 175), rgb(164, 1, 77));
+        transform: scale(1.05);
+    }
+
+    .navbar-brand img:hover {
+        transform: scale(1.2);
     }
 
     .modal-content {
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.096), 0 6px 20px rgba(0, 0, 0, 0.096);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .modal-header {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .modal-footer .btn {
+        border-radius: 25px;
+    }
+
+    .dropdown-menu {
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 </style>
