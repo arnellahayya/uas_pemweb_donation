@@ -47,6 +47,50 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="card mb-3 mt-4" id="animated-card">
+            <img class="card-img-top" src="/images/index/header-2.png" alt="Card image cap" />
+            <div class="card-body">
+                {{-- PARAGRAF 1 --}}
+                <h5 class="card-title">Bantu Mereka Korban Bencana Banjir</h5>
+                <p class="card-text" id="total-donatur"><i class="fa-regular fa-circle-check"></i>{{ $totalOrang }} Orang
+                    Telah Berdonasi </i>
+                </p>
+
+                <div class="row">
+                    {{-- SECTION KIRI --}}
+                    <div class="col-sm">
+                        {{-- PARAGRAF 2 --}}
+                        <p class="card-text" id="total-kumpul">Rp {{ number_format($totalTerkumpul, 0, ',', '.') }}</p>
+                        {{-- PARAGRAF 3 --}}
+                        <p class="card-text" id="total-jumlah">Terkumpul dari <strong>100.000.000</strong></p>
+                    </div>
+
+                    {{-- SECTION KANAN --}}
+                    <div class="col-sm text-right">
+                        <a href="/pembayaran">
+                            {{-- TOMBOL DONASI --}}
+                            <button class="pushable">
+                                <span class="shadow"></span>
+                                <span class="edge"></span>
+                                <span class="front">Mulai Donasi</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    @php
+                        $persentase = ($totalTerkumpul / 100000000) * 100;
+                    @endphp
+
+                    <div class="progress-bar" role="progressbar" style="width: {{ $persentase }}%;"
+                        aria-valuenow="{{ $persentase }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+            </div>
+        </div>
+    
 
     <style>
         /* ANIMASI */
