@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\cekAdmin;
 use App\Http\Middleware\cekLogin;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\DonasiController;
 
 Route::get('/api/news', [NewsController::class, 'fetchNews']);
 
@@ -35,3 +36,9 @@ Route::get('/session/register', [SessionController::class, 'register']);
 Route::post('/session/create', [SessionController::class, 'create']);
 
 Route::get('/session/logout', [SessionController::class, 'logout']);
+
+//BARU
+Route::resource('donasi', DonasiController::class);
+Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi');
+Route::get('/donasi/{id}', [DonasiController::class, 'show'])->name('donasi.show');
+Route::get('/donatur', [DonaturController::class, 'tampilDonatur'])->name('donatur');

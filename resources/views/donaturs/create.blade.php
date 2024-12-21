@@ -4,20 +4,30 @@
 
 @section('content')
     <div class="d-flex justify-content-center">
+        {{-- Pesan Sukses --}}
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+        
         <form class="form" action="{{ route('donaturs.store') }}" method="POST">
             @csrf
+
+            <!-- Input Tersembunyi untuk ID Donasi -->
+            <input type="hidden" name="donasi_id" value="{{ $donasi->id }}">
+
             <div class="card" id="card1">
                 <span class="title">Informasi Donatur</span>
                 <div class="group">
                     <input placeholder="" type="text" id="name" name="nama" value="{{ old('nama') }}" />
-
                     <label for="name">Nama</label>
                     @if ($errors->has('nama'))
                         <div class="error">{{ $errors->first('nama') }}</div>
                     @endif
                 </div>
                 <div class="group">
-                    <textarea placeholder="" id="comment" name="pesan" rows="5" required spellcheck="false">{{ old('pesan') }}</textarea>
+                    <textarea placeholder="" id="comment" name="pesan" rows="5" spellcheck="false">{{ old('pesan') }}</textarea>
                     <label for="comment">Pesan Donasi</label>
                     @if ($errors->has('pesan'))
                         <div class="error">{{ $errors->first('pesan') }}</div>
@@ -34,7 +44,6 @@
                     <div class="col-sm-3">
                         <div class="text-center">Jumlah</div>
                     </div>
-
                     <div class="col-sm">
                         <div class="group">
                             <input placeholder="Rp. " type="text" id="dengan-rupiah" name="total_donasi"
@@ -70,8 +79,7 @@
                     </div>
                     <div class="col-sm">
                         <label>
-                            <input class="radio-input" type="radio" name="tipe_bayar" value="BCA Virtual Account"
-                                required />
+                            <input class="radio-input" type="radio" name="tipe_bayar" value="BCA Virtual Account" required />
                             <span class="radio-tile">
                                 <span class="radio-icon">
                                     <img src="/images/pembayaran/opsi3-bca.png" alt="BCA Virtual Account" />
@@ -118,16 +126,6 @@
             } else {
                 nameInput.value = '';
                 nameInput.disabled = false;
-            }
-        });
-
-        document.querySelector('form').addEventListener('submit', function(event) {
-            var anonimCheckbox = document.getElementById('anonim');
-            var nameInput = document.getElementById('name');
-
-            if (anonimCheckbox.checked) {
-                nameInput.disabled = false;
-                nameInput.value = 'Anonim';
             }
         });
     </script>

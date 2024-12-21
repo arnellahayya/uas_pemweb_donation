@@ -14,5 +14,12 @@ class Donatur extends Model
         'pesan',
         'total_donasi',
         'tipe_bayar',
+        'donasi_id', // Tambahkan kolom baru
     ];
+
+    // Relasi dengan model Donasi
+    public function donasi()
+    {
+        return $this->belongsTo(Donasi::class, 'donasi_id');
+    }
 }
