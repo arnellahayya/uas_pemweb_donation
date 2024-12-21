@@ -1,6 +1,5 @@
 @extends('layouts.header')
 @section('title', 'Peduli Bersama')
-{{-- TAMPILAN HOME --}}
 
 @section('content')
     {{-- AWAL SLIDE GAMBAR --}}
@@ -68,53 +67,50 @@
         }
 
         async function loadNews() {
-        const apiUrl = '/api/news'; // URL backend Laravel
+    const apiUrl = '/api/news'; // URL backend Laravel yang memanggil API Currents
 
-        const newsContainer = document.getElementById('news-container');
-        newsContainer.innerHTML = '<p class="text-center">Memuat berita...</p>';
+    const newsContainer = document.getElementById('news-container');
+    newsContainer.innerHTML = '<p class="text-center">Memuat berita...</p>';
 
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-            if (data.articles) {
-                newsContainer.innerHTML = '';
+        if (data.news && data.news.length > 0) {
+            newsContainer.innerHTML = ''; // Bersihkan teks loading
 
-                // Iterasi melalui berita dan tambahkan ke halaman
-                data.articles.forEach((article) => {
-                    const newsCard = document.createElement('div');
-                    newsCard.classList.add('col-md-4', 'mb-4');
+            // Iterasi melalui berita dan tambahkan ke halaman
+            data.news.forEach((article) => {
+                const newsCard = document.createElement('div');
+                newsCard.classList.add('col-md-4', 'mb-4');
 
-                    newsCard.innerHTML = `
-                        <div class="card">
-                            <img class="card-img-top" src="${article.urlToImage || '/images/default-news.jpg'}" alt="Berita">
-                            <div class="card-body">
-                                <h5 class="card-title">${article.title}</h5>
-                                <p class="card-text">${article.description || ''}</p>
-                                <a href="${article.url}" target="_blank" class="btn btn-primary">Baca Selengkapnya</a>
-                            </div>
+                newsCard.innerHTML = `
+                    <div class="card">
+                        <img class="card-img-top" src="${article.image || '/images/default-news.jpg'}" alt="Berita">
+                        <div class="card-body">
+                            <h5 class="card-title">${article.title}</h5>
+                            <p class="card-text">${article.description || ''}</p>
+                            <a href="${article.url}" target="_blank" class="btn btn-primary">Baca Selengkapnya</a>
                         </div>
-                    `;
-                    newsContainer.appendChild(newsCard);
-                });
-            } else {
-                newsContainer.innerHTML = '<p class="text-center">Gagal memuat berita.</p>';
-            }
-        } catch (error) {
-            console.error('Error fetching news:', error);
-            newsContainer.innerHTML = '<p class="text-center">Terjadi kesalahan saat memuat berita.</p>';
+                    </div>
+                `;
+                newsContainer.appendChild(newsCard);
+            });
+        } else {
+            newsContainer.innerHTML = '<p class="text-center">Tidak ada berita terkini.</p>';
         }
+    } catch (error) {
+        console.error('Error fetching news:', error);
+        newsContainer.innerHTML = '<p class="text-center">Terjadi kesalahan saat memuat berita.</p>';
     }
+}
 
-    // Panggil fungsi loadNews saat halaman selesai dimuat
-    document.addEventListener('DOMContentLoaded', loadNews);
-        
+// Panggil fungsi loadNews saat halaman selesai dimuat
+document.addEventListener('DOMContentLoaded', loadNews);
+
     </script>
 
     <style>
-
-        
-        /* ANIMASI HALAMAN */
         .fade-in {
             opacity: 0;
             animation: fadeInAnimation 1s ease-in forwards;
@@ -124,7 +120,6 @@
             0% {
                 opacity: 0;
             }
-
             100% {
                 opacity: 1;
             }
@@ -193,34 +188,7 @@
             transform: translateY(-4px);
             transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
         }
-
-        .pushable:hover {
-            filter: brightness(110%);
-        }
-
-        .pushable:hover .front {
-            transform: translateY(-6px);
-            transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-        }
-
-        .pushable:active .front {
-            transform: translateY(-2px);
-            transition: transform 34ms;
-        }
-
-        .pushable:hover .shadow {
-            transform: translateY(4px);
-            transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-        }
-
-        .pushable:active .shadow {
-            transform: translateY(1px);
-            transition: transform 34ms;
-        }
-
-        .pushable:focus:not(:focus-visible) {
-            outline: none;
-        }
     </style>
+
 @include('layouts.footer')
 @endsection

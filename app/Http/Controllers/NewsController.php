@@ -2,31 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class NewsController extends Controller
 {
-    public function fetchNews()
+    public function getNews()
     {
-        $apiKey = env('NEWS_API_KEY', 'ac08a93ad958433cbd5af4c2ed71d882');
-        $url = "https://newsapi.org/v2/top-headlines?country=id&category=general&apiKey={$apiKey}";
+        // Ambil API key dari .env
+        $apiKey = env('ab9b7b933b4bf223bc8b976346b68afd');
 
-        try {
-            $response = Http::get($url);
+        // URL untuk mendapatkan berita terkini menggunakan Currents API
+        $url = 'https://gnews.io/api/v4/top-headlines?country=id&token=ab9b7b933b4bf223bc8b976346b68afd' . $apiKey;
 
-            // Tambahkan log untuk melihat data API
-            \Log::info('NewsAPI Response: ', $response->json());
+        // Request ke API menggunakan Laravel HTTP Client
+        $response = Http::get($url);
 
-            if ($response->successful()) {
-                return response()->json($response->json());
-            } else {
-                return response()->json(['error' => 'Gagal memuat berita dari API'], $response->status());
-            }
-        } catch (\Exception $e) {
-            \Log::error('NewsAPI Error: ' . $e->getMessage());
-            return response()->json(['error' => 'Terjadi kesalahan saat memproses permintaan'], 500);
+        // Cek apakah request berhasil
+        if ($response->successful()) {
+            // Ambil data dari API
+            $data = $response->json();
+
+            // Kirimkan data sebagai JSON ke frontend
+            return response()->json($data);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to load news.'
+            ]);
         }
     }
-
 }

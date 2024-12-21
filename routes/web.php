@@ -8,7 +8,7 @@ use App\Http\Middleware\cekLogin;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DonasiController;
 
-Route::get('/api/news', [NewsController::class, 'fetchNews']);
+Route::get('/api/news', [NewsController::class, 'getNews']);
 
 
 
