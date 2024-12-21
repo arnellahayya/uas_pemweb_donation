@@ -110,26 +110,7 @@
 </html>
 
 <style>
-    html, body {
-        height: 100%;
-        margin: 0;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    main {
-        flex-grow: 1;  /* Membuat konten utama mengambil ruang yang tersedia */
-    }
-
-    footer {
-        margin-top: auto;  /* Menjaga footer tetap berada di bawah */
-        padding: 20px 0;
-        background-color: #f8f9fa;
-    }
-
+    
     .navbar {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }

@@ -105,30 +105,8 @@
     </script>
 
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
 
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            flex-grow: 1;  /* Membuat konten utama mengambil ruang yang tersedia */
-        }
-
-        footer {
-            margin-top: auto;  /* Menjaga footer tetap berada di bawah */
-            padding: 20px 0;
-            background-color: #f8f9fa;
-        }
-
-
-
-
-
+        
         /* ANIMASI HALAMAN */
         .fade-in {
             opacity: 0;
@@ -237,7 +215,5 @@
             outline: none;
         }
     </style>
-    @include('layouts.footer')
+@include('layouts.footer')
 @endsection
-
-
