@@ -42,3 +42,5 @@ Route::resource('donasi', DonasiController::class);
 Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi');
 Route::get('/donasi/{id}', [DonasiController::class, 'show'])->name('donasi.show');
 Route::get('/donatur', [DonaturController::class, 'tampilDonatur'])->name('donatur');
+Route::get('/donasi/create', [DonasiController::class, 'create'])->name('donasi.create');
+Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi.donasi');
