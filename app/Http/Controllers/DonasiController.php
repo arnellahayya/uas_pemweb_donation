@@ -31,14 +31,21 @@ class DonasiController extends Controller
     // Simpan data donasi baru
     public function store(Request $request)
     {
+        // Bersihkan format angka (Rp, tanda titik, dll.) sebelum validasi
+        $request->merge([
+            'target_amount' => str_replace(['Rp', '.', ','], '', $request->target_amount),
+        ]);
+
+        // Validasi input
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'target_amount' => 'required|numeric|min:0',
             'category' => 'required|in:Banjir,Gempa,Lainnya',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validasi gambar
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', // Validasi gambar
         ]);
 
+        // Siapkan data untuk disimpan
         $data = $request->all();
 
         // Simpan gambar ke folder assets/images jika ada
@@ -48,10 +55,13 @@ class DonasiController extends Controller
             $data['image'] = 'assets/images/' . $imageName;
         }
 
+        // Simpan data donasi
         Donasi::create($data);
 
-        return redirect()->route('donasi.index')->with('success', 'Donasi berhasil ditambahkan!');
+        // Redirect ke halaman daftar donasi dengan pesan sukses
+        return redirect()->route('donasi.donasi')->with('success', 'Donasi berhasil ditambahkan!');
     }
+
 
 
     // Tampilkan form edit donasi

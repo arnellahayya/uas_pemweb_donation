@@ -49,7 +49,7 @@
                                 @if (Auth::user()->jenisAkun === 'admin')
                                     <a class="dropdown-item" href="/dashboard">Dashboard</a>
                                 @endif
-                                <a class="dropdown-item" href="/donasi/creator">Donasi Creator</a>
+                                <a class="dropdown-item" href="/donasi/create">Donasi Creator</a>
                                 <a class="dropdown-item" href="/session/logout">Logout</a>
                             </div>
                         </li>
