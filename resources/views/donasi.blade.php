@@ -1,5 +1,6 @@
 @extends('layouts.header')
 @section('title', 'Mulai Donasi')
+
 {{-- TAMPIL INFO DONASI TERKUMPUL --}}
 
 @section('content')
@@ -91,8 +92,9 @@
             </div>
         </div>
     
-
+        
     <style>
+        
         /* ANIMASI */
         #animated-card {
             animation: scrollUp 1s ease-in-out forwards;
