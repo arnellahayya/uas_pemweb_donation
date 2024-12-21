@@ -1,5 +1,5 @@
 @extends('layouts.header')
-@section('title', 'Daftar Donatur')
+@section('title', 'Daftar Donasi')
 {{-- DASHBOARD ADMIN --}}
 
 @section('content')
