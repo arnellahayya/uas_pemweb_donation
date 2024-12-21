@@ -21,7 +21,6 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
                 <img src="/images/layout/main-logo.png" alt="Logo" class="img-fluid mr-2" style="height: 50px;" />
-                
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,13 +29,13 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto align-items-center">
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                         <a class="nav-link text-uppercase" href="/">Beranda</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::is('donasi') ? 'active' : '' }}">
                         <a class="nav-link text-uppercase" href="/donasi">Donasi</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::is('donatur') ? 'active' : '' }}">
                         <a class="nav-link text-uppercase" href="/donatur">List Donatur</a>
                     </li>
 
@@ -130,7 +129,11 @@
     }
 
     .navbar-light .navbar-nav .nav-link:hover {
-        color:rgb(255, 0, 149);
+        color: rgb(0, 162, 255);
+    }
+
+    .navbar-light .navbar-nav .nav-item.active .nav-link {
+        color: rgb(0, 162, 255); /* Color for active item */
     }
 
     .btn-primary {

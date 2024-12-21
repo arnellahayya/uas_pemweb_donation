@@ -14,8 +14,6 @@
         <div class="card-body">
             <h5 class="card-title">{{ $item->title }}</h5>
             <p class="card-text" id="total-donatur">
-                <i class="fa-regular fa-circle-check"></i>
-                {{ $totalOrang }} Orang Telah Berdonasi
             </p>
             <div class="row">
                 <div class="col-sm">
